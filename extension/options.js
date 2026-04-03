@@ -12,45 +12,74 @@ document.addEventListener('DOMContentLoaded', () => {
   chrome.storage.managed.get(['ManagedHeaders'], (managedResult) => {
     if (managedResult.ManagedHeaders !== undefined) {
       isManaged = true;
-      statusBanner.textContent = "⚠️ An Enterprise Policy is currently active. Local settings below will NOT apply until the policy is removed.";
+      
+      // Show the managed warning banner
+      statusBanner.textContent = "These options are set by your admin and can't be changed.";
       statusBanner.className = "managed-active";
       statusBanner.style.display = "block";
-    }
 
-    // 2. Load Local Settings
-    chrome.storage.local.get(['LocalHeaders'], (localResult) => {
-      const rules = localResult.LocalHeaders || [];
+      // Disable buttons
+      addBtn.disabled = true;
+      saveBtn.disabled = true;
+      addBtn.style.opacity = "0.5";
+      saveBtn.style.opacity = "0.5";
+      addBtn.style.cursor = "not-allowed";
+      saveBtn.style.cursor = "not-allowed";
+
+      // Load managed rules into the UI as read-only
+      const rules = managedResult.ManagedHeaders || [];
       if (rules.length === 0) {
-        addRuleRow(); // Show one empty row by default
+        addRuleRow("", "", "", true);
       } else {
         rules.forEach(rule => {
-          // Convert array back to comma-separated string for UI
-          const domainsStr = rule.domains.join(', ');
-          addRuleRow(domainsStr, rule.headerName, rule.headerValue);
+          const domainsStr = rule.domains ? rule.domains.join(', ') : "";
+          addRuleRow(domainsStr, rule.headerName, rule.headerValue, true);
         });
       }
-    });
+    } else {
+      // 2. No policy active: Load Local Settings
+      chrome.storage.local.get(['LocalHeaders'], (localResult) => {
+        const rules = localResult.LocalHeaders || [];
+        if (rules.length === 0) {
+          addRuleRow(); // Show one empty row by default
+        } else {
+          rules.forEach(rule => {
+            const domainsStr = rule.domains ? rule.domains.join(', ') : "";
+            addRuleRow(domainsStr, rule.headerName, rule.headerValue, false);
+          });
+        }
+      });
+    }
   });
 
   // UI: Add a new row
-  function addRuleRow(domains = "", name = "", value = "") {
+  // Now accepts a readOnly parameter to lock the inputs and hide the remove button
+  function addRuleRow(domains = "", name = "", value = "", readOnly = false) {
     const row = document.createElement('div');
     row.className = 'rule-row';
+    
+    const disabledAttr = readOnly ? 'disabled="disabled"' : '';
+    const removeBtnStyle = readOnly ? 'style="display: none;"' : '';
+    
     row.innerHTML = `
-      <input type="text" class="domains" placeholder="Domains (comma-separated)" value="${domains}">
-      <input type="text" class="header-name" placeholder="Header Name" value="${name}">
-      <input type="text" class="header-value" placeholder="Header Value" value="${value}">
-      <button class="btn-remove">X</button>
+      <input type="text" class="domains" placeholder="Domains (comma-separated)" value="${domains}" ${disabledAttr}>
+      <input type="text" class="header-name" placeholder="Header Name" value="${name}" ${disabledAttr}>
+      <input type="text" class="header-value" placeholder="Header Value" value="${value}" ${disabledAttr}>
+      <button class="btn-remove" ${disabledAttr} ${removeBtnStyle}>X</button>
     `;
     
-    row.querySelector('.btn-remove').addEventListener('click', () => {
-      row.remove();
-    });
+    if (!readOnly) {
+      row.querySelector('.btn-remove').addEventListener('click', () => {
+        row.remove();
+      });
+    }
 
     container.appendChild(row);
   }
 
-  addBtn.addEventListener('click', () => addRuleRow());
+  addBtn.addEventListener('click', () => {
+    if (!isManaged) addRuleRow();
+  });
 
   // Function to gather data from the DOM into the JSON array format
   function getRulesFromUI() {
@@ -80,6 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Save to chrome.storage.local
   saveBtn.addEventListener('click', () => {
+    if (isManaged) return; // Prevent saving if managed state was somehow bypassed
+    
     const rules = getRulesFromUI();
     chrome.storage.local.set({ LocalHeaders: rules }, () => {
       saveMessage.textContent = "Saved locally!";
@@ -91,9 +122,11 @@ document.addEventListener('DOMContentLoaded', () => {
   exportBtn.addEventListener('click', () => {
     const rules = getRulesFromUI();
     
-    // Wrap the array in the expected Policy Key
+    // Wrap the array in the precise structure needed for policy deployment
     const policyObject = {
-      "ManagedHeaders": rules
+      "ManagedHeaders": {
+        "Value": rules
+      }
     };
 
     const jsonString = JSON.stringify(policyObject, null, 2);
