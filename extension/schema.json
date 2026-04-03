@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "properties": {
+    "ManagedHeaders": {
+      "type": "array",
+      "title": "Configured Headers and Domains",
+      "description": "List of domains and the headers to inject into their requests.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "domains": {
+            "type": "array",
+            "title": "Target Domains",
+            "description": "List of domains where the header should be inserted (e.g., login.microsoftonline.com).",
+            "items": {
+              "type": "string"
+            }
+          },
+          "headerName": {
+            "type": "string",
+            "title": "Header Name"
+          },
+          "headerValue": {
+            "type": "string",
+            "title": "Header Value"
+          }
+        },
+        "required": ["domains", "headerName", "headerValue"]
+      }
+    }
+  }
+}
