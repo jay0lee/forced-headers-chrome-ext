@@ -90,7 +90,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Export to Policy JSON
   exportBtn.addEventListener('click', () => {
     const rules = getRulesFromUI();
-    const jsonString = JSON.stringify(rules, null, 2);
+    
+    // Wrap the array in the expected Policy Key
+    const policyObject = {
+      "ManagedHeaders": rules
+    };
+
+    const jsonString = JSON.stringify(policyObject, null, 2);
     
     // Create a downloadable Blob
     const blob = new Blob([jsonString], { type: "application/json" });
@@ -98,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const a = document.createElement('a');
     a.href = url;
-    a.download = "ManagedHeaders_Policy_Test.json";
+    a.download = "ForcedHeaders_Policy.json";
     document.body.appendChild(a);
     a.click();
     
