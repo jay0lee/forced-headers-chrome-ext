@@ -21,4 +21,4 @@ id=$(openssl rsa -in "$in_file" -pubout -outform DER 2>/dev/null |
      head -c 32 | 
      tr '0-9a-f' 'a-p')
 
-echo "ID: $id"
+echo "$id"
