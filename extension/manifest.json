@@ -1,6 +1,6 @@
 {
   "name": "Forced Headers",
-  "version": "2026.0403.1538.10",
+  "version": "2026.0403.1550.36",
   "manifest_version": 3,
   "description": "Injects custom headers into specified domains based on managed enterprise policies.",
   "permissions": [
@@ -22,5 +22,6 @@
     "32": "images/32x32.png",
     "48": "images/48x48.png",
     "128": "images/128x128.png"
-  }
+  },
+  "update_url": "https://jay0lee.github.io/jay0lee/forced-headers-chrome-ext/hosted/update.xml"
 }
