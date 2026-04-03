@@ -39,7 +39,7 @@ jobs:
         tmpfile=$(mktemp)
         update_url="https://${{ github.repository_owner }}.github.io/${GITHUB_REPOSITORY}/hosted/update.xml"
         echo "Update URL is: ${update_url}"
-        jq ".version = \"$extension_version\"" extension/manifest.json \
+        jq ".version = \"$extension_version\"" extension/manifest.json | \
           jq ".update_url = \"$update_url\"" > "$tmpfile" && \
           mv "$tmpfile" extension/manifest.json
         cat extension/manifest.json
