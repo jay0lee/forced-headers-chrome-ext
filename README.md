@@ -36,7 +36,7 @@ You can configure this directly in the extension's settings panel in the Google 
 1. Select the extension to open its settings panel.
 2. Scroll down to **Enterprise extensions settings**.
 3. Under **Hosts where the extension is blocked**, enter: `*://*/*` (This blocks the extension from running everywhere by default).
-4. Under **Hosts where the extension is allowed to run**, enter your target domains separated by commas. For example: `*://login.microsoftonline.com/*, *://login.microsoft.com/*, *://login.live.com/*`
+4. Under **Hosts where the extension is allowed to run**, enter your target domains separated by commas. For example: `*://login.microsoftonline.com/, *://login.microsoft.com/, *://login.live.com/`
 5. Click **Save**.
 
 🔗 **Google Documentation:** [Allow or block extensions on specific websites](https://support.google.com/chrome/a/answer/7532015)
