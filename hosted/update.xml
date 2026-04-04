@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
   <app appid='fpfdoojindonejppjnehipdpehinpinh'>
-	  <updatecheck codebase='https://jay0lee.github.io/forced-headers-chrome-ext/hosted/extension.crx' version='2026.0403.1922.54' />
+	  <updatecheck codebase='https://jay0lee.github.io/forced-headers-chrome-ext/hosted/extension.crx' version='2026.0404.0033.29' />
   </app>
 </gupdate>
