@@ -4,13 +4,11 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main # Change if your default branch is named differently
-
+      - main
 jobs:
   publish:
     runs-on: ubuntu-latest
     
-    # REQUIRED: These permissions are necessary for GitHub to use OIDC to authenticate with GCP
     permissions:
       contents: read
       id-token: write
@@ -38,7 +36,6 @@ jobs:
         with:
           workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-          # Requesting an access token specifically scoped for the Chrome Web Store API
           token_format: 'access_token'
           access_token_scopes: 'https://www.googleapis.com/auth/chromewebstore'
 
