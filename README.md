@@ -2,10 +2,12 @@
 
 A Chrome extension that dynamically injects custom HTTP headers into specific web requests. This is designed for enterprise administrators who need to enforce Network Access Controls or Tenant Restrictions (e.g., Microsoft Entra ID, Google Workspace, Slack) on managed browsers.
 
+<a target="_blank" href="https://chromewebstore.google.com/detail/forced-headers/abbfcfajomjcnccbkcimgejlimekhige"><img alt="Try it now" src="https://github.com/jay0lee/cros-info/raw/master/cws.png" title="Click here to install this sample from the Chrome Web Store"></img></a>
+
 ## How to Configure and Deploy
 
-### 1. Force-Install the Extension via Custom URL
-First, add the self-hosted extension to your managed environment:
+### 1. Force-Install the Extension
+First, add the extension to your Chrome policy:
 1. Open the [Google Admin Console](https://admin.google.com) and navigate to **Devices > Chrome > Apps & extensions > Users & browsers**.
 2. Click the yellow **+** button in the bottom right and select **Add Chrome app or extension by ID**.
 3. In the dropdown, select **From a custom URL**.
