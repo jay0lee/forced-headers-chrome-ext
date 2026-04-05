@@ -59,7 +59,7 @@ Below is a reference list of major SaaS and Cloud platforms that support network
 | **Cisco Webex** | `CiscoSpark-Allowed-Domains` | `mycompany.com` | [Docs](https://help.webex.com/en-us/article/m0jby2/Configure-a-list-of-allowed-domains-to-access-Webex-while-on-your-corporatenetwork) |
 | **Asana** | `Asana-Allowed-Domain-Ids`<br>`Asana-Allowed-Domains-Requester-Id` | `11111111111, 22222222222`<br>`11111111111` | [Docs](https://help.asana.com/hc/en-us/articles/14234033602459-Network-restrictions) |
 | **YouTube** | `YouTube-Restrict` | `Strict` (or `Moderate`) | [Docs](https://support.google.com/a/answer/6214622) |
-| **Anthropic Claude** | `anthropic-allowed-org-ids` | `123e4567-e89b-12d3-a456-426614174000` | [Docs] |(https://support.claude.com/en/articles/13198485-enforce-network-level-access-control-with-tenant-restrictions) |
+| **Anthropic Claude** | `anthropic-allowed-org-ids` | `123e4567-e89b-12d3-a456-426614174000` | [Docs](https://support.claude.com/en/articles/13198485-enforce-network-level-access-control-with-tenant-restrictions) |
 | **OpenAI ChatGPT** | `chatgpt-allowed-workspace-id` | `437adf77-4085-4b22-b7b1-de7b6f5ec6c0` | No Doc???
 
 *Note: Services that require paired headers (like Slack and Asana) typically use a "Requester ID" header alongside the allowed list to identify the primary tenant managing the restriction policy.*
