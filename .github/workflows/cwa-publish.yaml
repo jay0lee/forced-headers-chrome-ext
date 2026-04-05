@@ -1,0 +1,79 @@
+name: Publish to Chrome Web Store
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main # Change if your default branch is named differently
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    # REQUIRED: These permissions are necessary for GitHub to use OIDC to authenticate with GCP
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Strip update_url from manifest.json
+        run: |
+          cd extension
+          # jq 'del(.key)' safely removes the key if it exists, or leaves the file intact if it doesn't
+          jq 'del(.update_url)' manifest.json > manifest_tmp.json
+          mv manifest_tmp.json manifest.json
+
+      - name: Zip the Extension
+        run: |
+          # Package everything, excluding git and GitHub workflows
+          cd extension
+          zip -r ../extension.zip . -x "*.git*" -x ".github/*" -x "extension.zip"
+
+      - name: Authenticate via Google Workload Identity Federation
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          # Requesting an access token specifically scoped for the Chrome Web Store API
+          token_format: 'access_token'
+          access_token_scopes: 'https://www.googleapis.com/auth/chromewebstore'
+
+      - name: Upload Extension to Chrome Web Store
+        run: |
+          echo "Uploading to CWS..."
+          UPLOAD_RESPONSE=$(curl -s -X PUT \
+            -H "Authorization: Bearer ${{ steps.auth.outputs.access_token }}" \
+            -H "x-goog-api-version: 2" \
+            -T extension.zip \
+            "https://www.googleapis.com/upload/chromewebstore/v1.1/items/${{ secrets.EXTENSION_ID }}")
+          
+          echo "Upload response: $UPLOAD_RESPONSE"
+          
+          # Parse uploadState to verify success before attempting to publish
+          UPLOAD_STATE=$(echo "$UPLOAD_RESPONSE" | jq -r '.uploadState')
+          if [ "$UPLOAD_STATE" != "SUCCESS" ]; then
+            echo "Error: Upload failed or is in an invalid state."
+            exit 1
+          fi
+
+      - name: Publish Extension
+        run: |
+          echo "Publishing to CWS..."
+          PUBLISH_RESPONSE=$(curl -s -X POST \
+            -H "Authorization: Bearer ${{ steps.auth.outputs.access_token }}" \
+            -H "x-goog-api-version: 2" \
+            -H "Content-Length: 0" \
+            "https://www.googleapis.com/chromewebstore/v1.1/items/${{ secrets.EXTENSION_ID }}/publish")
+          
+          echo "Publish response: $PUBLISH_RESPONSE"
+          
+          # Ensure publish status was OK
+          PUBLISH_STATUS=$(echo "$PUBLISH_RESPONSE" | jq -r '.status[0]')
+          if [ "$PUBLISH_STATUS" != "OK" ]; then
+            echo "Error: Publish failed."
+            exit 1
+          fi
