@@ -54,7 +54,7 @@ Below is a reference list of major SaaS and Cloud platforms that support network
 | **Google Cloud (GCP)** | `X-Goog-Allowed-Resources` | `organizations/123456789` | [Docs](https://cloud.google.com/resource-manager/docs/organization-policy/restricting-domains) |
 | **Slack** | `X-Slack-Allowed-Workspaces`<br>`X-Slack-Allowed-Workspaces-Requester` | `T1234567, T8901234`<br>`T1234567` | [Docs](https://slack.com/help/articles/360024821873-Approve-Slack-workspaces-for-your-network) |
 | **Dropbox** | `X-Dropbox-Allowed-Team-Ids` | `12345678` | [Docs](https://help.dropbox.com/security/network-control) |
-| **Cisco Webex** | `CiscoSpark-Allowed-Domains` | `mycompany.com` | [Docs](https://help.webex.com/en-us/article/ng5gfpbe/Restrict-access-to-Webex-for-your-organization) |
+| **Cisco Webex** | `CiscoSpark-Allowed-Domains` | `mycompany.com` | [Docs](https://help.webex.com/en-us/article/m0jby2/Configure-a-list-of-allowed-domains-to-access-Webex-while-on-your-corporatenetwork) |
 | **Asana** | `Asana-Allowed-Domain-Ids`<br>`Asana-Allowed-Domains-Requester-Id` | `11111111111, 22222222222`<br>`11111111111` | [Docs](https://help.asana.com/hc/en-us/articles/14234033602459-Network-restrictions) |
 | **YouTube** | `YouTube-Restrict` | `Strict` (or `Moderate`) | [Docs](https://support.google.com/a/answer/6214622) |
 | **Anthropic Claude** | `anthropic-allowed-org-ids` | `123e4567-e89b-12d3-a456-426614174000` | [Docs](https://support.claude.com/en/articles/13198485-enforce-network-level-access-control-with-tenant-restrictions) |
