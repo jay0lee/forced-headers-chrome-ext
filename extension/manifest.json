@@ -1,6 +1,6 @@
 {
   "name": "Forced Headers",
-  "version": "2026.0405.1644.19",
+  "version": "2026.0405.1648.37",
   "manifest_version": 3,
   "description": "Injects custom headers into specified domains based on managed enterprise policies.",
   "permissions": [
