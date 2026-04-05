@@ -46,10 +46,8 @@ jobs:
             -H "Authorization: Bearer ${{ steps.auth.outputs.access_token }}" \
             -H "x-goog-api-version: 2" \
             -T extension.zip \
-            "https://www.googleapis.com/upload/chromewebstore/v1.1/items/${{ secrets.EXTENSION_ID }}")
-          
+            "https://www.googleapis.com/upload/chromewebstore/v1.1/items/abbfcfajomjcnccbkcimgejlimekhige")
           echo "Upload response: $UPLOAD_RESPONSE"
-          
           # Parse uploadState to verify success before attempting to publish
           UPLOAD_STATE=$(echo "$UPLOAD_RESPONSE" | jq -r '.uploadState')
           if [ "$UPLOAD_STATE" != "SUCCESS" ]; then
@@ -64,10 +62,8 @@ jobs:
             -H "Authorization: Bearer ${{ steps.auth.outputs.access_token }}" \
             -H "x-goog-api-version: 2" \
             -H "Content-Length: 0" \
-            "https://www.googleapis.com/chromewebstore/v1.1/items/${{ secrets.EXTENSION_ID }}/publish")
-          
+            "https://www.googleapis.com/chromewebstore/v1.1/items/abbfcfajomjcnccbkcimgejlimekhige/publish")
           echo "Publish response: $PUBLISH_RESPONSE"
-          
           # Ensure publish status was OK
           PUBLISH_STATUS=$(echo "$PUBLISH_RESPONSE" | jq -r '.status[0]')
           if [ "$PUBLISH_STATUS" != "OK" ]; then
