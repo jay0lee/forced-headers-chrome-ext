@@ -7,8 +7,16 @@ A Chrome extension that dynamically injects custom HTTP headers into specific we
 ## How to Configure and Deploy
 
 ### 1. Force-Install the Extension
-First, add the extension to your Chrome policy:
-1. Open the [Google Admin Console](https://admin.google.com) and navigate to **Devices > Chrome > Apps & extensions > Users & browsers**.
+Add the Chrome Web store extension to your Chrome policy (official store):
+1. Open the [Google Admin Console](https://admin.google.com) and navigate to **Chrome browser > Apps & extensions > Users & browsers**.
+2. Click the yellow **+** button in the bottom right and select **Add from Chrome Web Store**.
+3. Search for the extension by ID: `abbfcfajomjcnccbkcimgejlimekhige`
+4. In the app list, click the drop-down menu under "Installation policy" for the newly added extension and set it to **Force install** (you may want to do this in a test Organizational Unit first).
+
+OR
+
+Add the Github-hosted extension to your Chrome policy (latest version):
+1. Open the [Google Admin Console](https://admin.google.com) and navigate to **Chrome browser > Apps & extensions > Users & browsers**.
 2. Click the yellow **+** button in the bottom right and select **Add Chrome app or extension by ID**.
 3. In the dropdown, select **From a custom URL**.
 4. Enter the Extension ID: `fpfdoojindonejppjnehipdpehinpinh`
