@@ -59,7 +59,7 @@ Below is a reference list of major SaaS and Cloud platforms that support network
 
 | Service | HTTP Header(s) | Example Value | Documentation |
 | :--- | :--- | :--- | :--- |
-| **Microsoft Entra ID** | `sec-Restrict-Tenant-Access-Policy`<br> | `restrict-msa;mytenant.onmicrosoft.com`<br>`contoso.com, fabrikam.com` | [Docs](https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/tenant-restrictions-v2) |
+| **Microsoft Entra ID** | `sec-Restrict-Tenant-Access-Policy`<br> | `restrict-msa;mytenant.onmicrosoft.com`<br>`contoso.com, fabrikam.com` | [Docs](https://learn.microsoft.com/en-us/entra/external-id/tenant-restrictions-v2) |
 | **Google Workspace** | `X-GoogApps-Allowed-Domains` | `mycompany.com, subsidiary.com` | [Docs](https://docs.cloud.google.com/resource-manager/docs/organization-restrictions/configure-organization-restrictions) |
 | **Google Cloud (GCP)** | `X-Goog-Allowed-Resources` | `organizations/123456789` | [Docs](https://cloud.google.com/resource-manager/docs/organization-policy/restricting-domains) |
 | **Slack** | `X-Slack-Allowed-Workspaces`<br>`X-Slack-Allowed-Workspaces-Requester` | `T1234567, T8901234`<br>`T1234567` | [Docs](https://slack.com/help/articles/360024821873-Approve-Slack-workspaces-for-your-network) |
