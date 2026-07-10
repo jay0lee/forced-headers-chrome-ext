@@ -60,7 +60,7 @@ Below is a reference list of major SaaS and Cloud platforms that support network
 | Service | HTTP Header(s) | Example Value | Documentation |
 | :--- | :--- | :--- | :--- |
 | **Microsoft Entra ID** | `sec-Restrict-Tenant-Access-Policy`<br> | `restrict-msa;mytenant.onmicrosoft.com`<br>`contoso.com, fabrikam.com` | [Docs](https://learn.microsoft.com/en-us/entra/external-id/tenant-restrictions-v2) |
-| **Google Workspace** | `X-GoogApps-Allowed-Domains` | `mycompany.com, subsidiary.com` | [Docs](https://knowledge.workspace.google.com/admin/security/block-access-to-consumer-accounts) |
+| **Google Workspace** | `X-GoogApps-Allowed-Domains` | `mycompany.com, subsidiary.com` | [Docs](https://knowledge.workspace.google.com/admin/security/block-access-to-consumer-accounts) (note you can accomplish the same functionality with a native Chrome policy [AllowedDomainsForApp](https://chromeenterprise.google/policies/#AllowedDomainsForApps)) |
 | **Google Cloud (GCP)** | `X-Goog-Allowed-Resources` | `organizations/123456789` | [Docs](https://cloud.google.com/resource-manager/docs/organization-policy/restricting-domains) |
 | **Slack** | `X-Slack-Allowed-Workspaces`<br>`X-Slack-Allowed-Workspaces-Requester` | `T1234567, T8901234`<br>`T1234567` | [Docs](https://slack.com/help/articles/360024821873-Approve-Slack-workspaces-for-your-network) |
 | **Dropbox** | `X-Dropbox-Allowed-Team-Ids` | `12345678` | [Docs](https://help.dropbox.com/security/network-control) |
@@ -68,6 +68,6 @@ Below is a reference list of major SaaS and Cloud platforms that support network
 | **Asana** | `Asana-Allowed-Domain-Ids`<br>`Asana-Allowed-Domains-Requester-Id` | `11111111111, 22222222222`<br>`11111111111` | [Docs](https://help.asana.com/hc/en-us/articles/14234033602459-Network-restrictions) |
 | **YouTube** | `YouTube-Restrict` | `Strict` (or `Moderate`) | [Docs](https://support.google.com/a/answer/6214622) |
 | **Anthropic Claude** | `anthropic-allowed-org-ids` | `123e4567-e89b-12d3-a456-426614174000` | [Docs](https://support.claude.com/en/articles/13198485-enforce-network-level-access-control-with-tenant-restrictions) |
-| **OpenAI ChatGPT** | `chatgpt-allowed-workspace-id` | `437adf77-4085-4b22-b7b1-de7b6f5ec6c0` | No Doc???
+| **OpenAI ChatGPT** | `chatgpt-allowed-workspace-id` | `437adf77-4085-4b22-b7b1-de7b6f5ec6c0` | [Docs](https://help.openai.com/en/articles/20001323-corporate-network-controls-in-chatgpt-enterprise) |
 
 *Note: Services that require paired headers (like Slack and Asana) typically use a "Requester ID" header alongside the allowed list to identify the primary tenant managing the restriction policy.*
